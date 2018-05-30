@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Daily Example</title>
+    <link href="../src/style.css" rel="stylesheet" type="text/css">
+    <link href="../src/markdown.css" rel="stylesheet" type="text/css">
+    <script src="../public/html2canvas.min.js"></script>
+</head>
+<body>
+<button onclick="getPic()">生成图片</button>
+<br>
+<div class="main">
+    <header>
+        <span class="date">2018.5.24</span>
+        <div class="flex"></div>
+        <span class="user">by DominicMing</span>
+    </header>
+    <section class="info">
+        <div class="logo">
+            <img src="data:image/jpg;base64,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"
+                 alt="">
+        </div>
+        <div class="title">
+            <img src="../public/img/sun.png" alt="">
+            <div class="name">DominicMing的日报</div>
+            <img src="../public/img/moon_and.png" alt="">
+        </div>
+        <div class="time-line">
+            <hr>
+            <ul>
+                <li>
+                    <div class="time">10:00 ~ 11:50</div>
+                    <div class="content">
+                        <dl>
+                            <dd>总结昨日工作</dd>
+                        </dl>
+                    </div>
+                </li>
+                <li>
+                    <div class="time">14:00 ~ 17:50</div>
+                    <div class="content">
+                        <dl>
+                            <dd>总结早上工作</dd>
+                        </dl>
+                    </div>
+                </li>
+                <li>
+                    <div class="time">19:00 ~ 22:00</div>
+                    <div class="content">
+                        <dl>
+                            <dd>总结今日工作</dd>
+                        </dl>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="other">
+        <h2>其他事项</h2>
+        <ul>
+            <li>软件的安装与更新</li>
+        </ul>
+    </section>
+    <section class="list">
+        <ul>
+            <li>
+                <h3><img src="../public/img/time.svg" alt=""><span>工作进度</span></h3>
+                <div class="task">
+                    <div class="h">
+                        <span>学习代码规范</span>
+                        <div class="p">
+                            <div class="date">
+                                <div>80%</div>
+                            </div>
+                            <div class="progress">
+                                <div style="width: 80%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>2018.5.27 - 2018.5.28</p>
+                    <p>学习并了解了大部分的规范，并在demo代码上做出了实践。</p>
+                </div>
+                <div class="task">
+                    <div class="h">
+                        <span>需求分析</span>
+                        <div class="p">
+                            <div class="date">
+                                <div>80%</div>
+                            </div>
+                            <div class="progress">
+                                <div style="width: 80%;"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <p>2018.5.27 - 2018.6.1</p>
+                    <p>学习并了解了大部分的规范，并在demo代码上做出了实践。</p>
+                </div>
+            </li>
+            <li>
+                <h3><img src="../public/img/msg.svg" alt=""><span>遇到的问题</span></h3>
+                <dl>
+                    <dt>这应该是一些描述</dt>
+                </dl>
+            </li>
+            <li>
+                <h3><img src="../public/img/think.svg" alt=""><span>思考与感悟</span></h3>
+                <div class="markdown-body">
+                    <a name="This is an H1" class="reference-link"></a><span
+                        class="header-link octicon octicon-link"></span>This is an H1</h1><h2 id="h2-this-is-an-h2"><a
+                        name="This is an H2" class="reference-link"></a><span
+                        class="header-link octicon octicon-link"></span>This is an H2</h2>
+                    <h3 id="h3-u5B57u7B26u6548u679Cu548Cu6A2Au7EBFu7B49"><a name="字符效果和横线等"
+                                                                            class="reference-link"></a><span
+                            class="header-link octicon octicon-link"></span>字符效果和横线等</h3>
+                    <hr>
+                    <p>
+                        <del>删除线</del>
+                        <s>删除线（开启识别HTML标签时）</s><br><em>斜体字</em> <em>斜体字</em><br><strong>粗体</strong>
+                        <strong>粗体</strong><br><strong><em>粗斜体</em></strong> <strong><em>粗斜体</em></strong></p>
+                    <p>上标：X<sub>2</sub>，下标：O<sup>2</sup></p>
+                    <p><strong>缩写(同HTML的abbr标签)</strong></p>
+                    <blockquote>
+                        <p>即更长的单词或短语的缩写形式，前提是开启识别HTML标签时，已默认开启</p>
+                    </blockquote>
+                    <p>The <abbr title="Hyper Text Markup Language">HTML</abbr> specification is maintained by the <abbr
+                            title="World Wide Web Consortium">W3C</abbr>.</p>
+                    <h3 id="h3--blockquotes"><a name="引用 Blockquotes" class="reference-link"></a><span
+                            class="header-link octicon octicon-link"></span>引用 Blockquotes</h3>
+                    <blockquote>
+                        <p>引用文本 Blockquotes</p>
+                    </blockquote>
+                    <p>引用的行内混合 Blockquotes</p>
+                    <blockquote>
+                        <p>引用：如果想要插入空白换行<code>即&lt;br /&gt;标签</code>，在插入处先键入两个以上的空格然后回车即可，<a href="http://localhost/">普通链接</a>。
+                        </p>
+                    </blockquote>
+                    <h3 id="h3--links"><a name="锚点与链接 Links" class="reference-link"></a><span
+                            class="header-link octicon octicon-link"></span>锚点与链接 Links</h3>
+                    <p><a href="http://localhost/">普通链接</a></p>
+                    <p><a href="http://localhost/" title="普通链接带标题">普通链接带标题</a></p>
+                    <p>直接链接：<a href="https://github.com">https://github.com</a></p>
+                    <p><a href="http://www.this-anchor-link.com/">锚点链接</a></p>
+                    <p>GFM a-tail link <a href="https://github.com/pandao" title="@pandao" class="at-link">@pandao</a>
+                    </p>
+                    <blockquote>
+                        <p><a href="https://github.com/pandao" title="@pandao" class="at-link">@pandao</a></p>
+                    </blockquote>
+                    <h3 id="h3--codes"><a name="多语言代码高亮 Codes" class="reference-link"></a><span
+                            class="header-link octicon octicon-link"></span>多语言代码高亮 Codes</h3><h4 id="h4--inline-code">
+                    <a name="行内代码 Inline code" class="reference-link"></a><span
+                        class="header-link octicon octicon-link"></span>行内代码 Inline code</h4>
+                    <p>执行命令：<code>npm install marked</code></p>
+                    <h4 id="h4-u7F29u8FDBu98CEu683C"><a name="缩进风格" class="reference-link"></a><span
+                            class="header-link octicon octicon-link"></span>缩进风格</h4>
+                    <p>即缩进四个空格，也做为实现类似<code>&lt;pre&gt;</code>预格式化文本(Preformatted Text)的功能。</p>
+                    <h4 id="h4-js-"><a name="JS代码" class="reference-link"></a><span
+                            class="header-link octicon octicon-link"></span>JS代码　</h4>
+                    <pre class="prettyprint linenums prettyprinted" style=""><ul class="linenums"><li class="L0"><code
+                            class="lang-javascript"><span class="kwd">function</span><span class="pln"> test</span><span
+                            class="pun">(){</span></code></li><li class="L1"><code class="lang-javascript"><span
+                            class="pln">    console</span><span class="pun">.</span><span class="pln">log</span><span
+                            class="pun">(</span><span class="str">"Hello world!"</span><span
+                            class="pun">);</span></code></li><li class="L2"><code class="lang-javascript"><span
+                            class="pun">}</span></code></li><li class="L3"><code class="lang-javascript"></code></li><li
+                            class="L4"><code class="lang-javascript"><span class="pun">(</span><span class="kwd">function</span><span
+                            class="pun">(){</span></code></li><li class="L5"><code class="lang-javascript"><span
+                            class="pln">    </span><span class="kwd">var</span><span class="pln"> box </span><span
+                            class="pun">=</span><span class="pln"> </span><span class="kwd">function</span><span
+                            class="pun">(){</span></code></li><li class="L6"><code class="lang-javascript"><span
+                            class="pln">        </span><span class="kwd">return</span><span class="pln"> box</span><span
+                            class="pun">.</span><span class="pln">fn</span><span class="pun">.</span><span class="pln">init</span><span
+                            class="pun">();</span></code></li><li class="L7"><code class="lang-javascript"><span
+                            class="pln">    </span><span class="pun">};</span></code></li><li class="L8"><code
+                            class="lang-javascript"></code></li><li class="L9"><code class="lang-javascript"><span
+                            class="pln">    box</span><span class="pun">.</span><span class="pln">prototype </span><span
+                            class="pun">=</span><span class="pln"> box</span><span class="pun">.</span><span
+                            class="pln">fn </span><span class="pun">=</span><span class="pln"> </span><span class="pun">{</span></code></li><li
+                            class="L0"><code class="lang-javascript"><span class="pln">        init </span><span
+                            class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span
+                            class="pun">(){</span></code></li><li class="L1"><code class="lang-javascript"><span
+                            class="pln">            console</span><span class="pun">.</span><span class="pln">log</span><span
+                            class="pun">(</span><span class="str">'box.init()'</span><span class="pun">);</span></code></li><li
+                            class="L2"><code class="lang-javascript"></code></li><li class="L3"><code
+                            class="lang-javascript"><span class="pln">            </span><span class="kwd">return</span><span
+                            class="pln"> </span><span class="kwd">this</span><span class="pun">;</span></code></li><li
+                            class="L4"><code class="lang-javascript"><span class="pln">        </span><span class="pun">},</span></code></li><li
+                            class="L5"><code class="lang-javascript"></code></li><li class="L6"><code
+                            class="lang-javascript"><span class="pln">        add </span><span class="pun">:</span><span
+                            class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span
+                            class="pln">str</span><span class="pun">){</span></code></li><li class="L7"><code
+                            class="lang-javascript"><span class="pln">            alert</span><span class="pun">(</span><span
+                            class="str">"add"</span><span class="pun">,</span><span class="pln"> str</span><span
+                            class="pun">);</span></code></li><li class="L8"><code class="lang-javascript"></code></li><li
+                            class="L9"><code class="lang-javascript"><span class="pln">            </span><span
+                            class="kwd">return</span><span class="pln"> </span><span class="kwd">this</span><span
+                            class="pun">;</span></code></li><li class="L0"><code class="lang-javascript"><span
+                            class="pln">        </span><span class="pun">},</span></code></li><li class="L1"><code
+                            class="lang-javascript"></code></li><li class="L2"><code class="lang-javascript"><span
+                            class="pln">        remove </span><span class="pun">:</span><span class="pln"> </span><span
+                            class="kwd">function</span><span class="pun">(</span><span class="pln">str</span><span
+                            class="pun">){</span></code></li><li class="L3"><code class="lang-javascript"><span
+                            class="pln">            alert</span><span class="pun">(</span><span
+                            class="str">"remove"</span><span class="pun">,</span><span class="pln"> str</span><span
+                            class="pun">);</span></code></li><li class="L4"><code class="lang-javascript"></code></li><li
+                            class="L5"><code class="lang-javascript"><span class="pln">            </span><span
+                            class="kwd">return</span><span class="pln"> </span><span class="kwd">this</span><span
+                            class="pun">;</span></code></li><li class="L6"><code class="lang-javascript"><span
+                            class="pln">        </span><span class="pun">}</span></code></li><li class="L7"><code
+                            class="lang-javascript"><span class="pln">    </span><span class="pun">};</span></code></li><li
+                            class="L8"><code class="lang-javascript"></code></li><li class="L9"><code
+                            class="lang-javascript"><span class="pln">    box</span><span class="pun">.</span><span
+                            class="pln">fn</span><span class="pun">.</span><span class="pln">init</span><span
+                            class="pun">.</span><span class="pln">prototype </span><span class="pun">=</span><span
+                            class="pln"> box</span><span class="pun">.</span><span class="pln">fn</span><span
+                            class="pun">;</span></code></li><li class="L0"><code class="lang-javascript"></code></li><li
+                            class="L1"><code class="lang-javascript"><span class="pln">    window</span><span
+                            class="pun">.</span><span class="pln">box </span><span class="pun">=</span><span
+                            class="pln">box</span><span class="pun">;</span></code></li><li class="L2"><code
+                            class="lang-javascript"><span class="pun">})();</span></code></li><li class="L3"><code
+                            class="lang-javascript"></code></li><li class="L4"><code class="lang-javascript"><span
+                            class="kwd">var</span><span class="pln"> testBox </span><span class="pun">=</span><span
+                            class="pln"> box</span><span class="pun">();</span></code></li><li class="L5"><code
+                            class="lang-javascript"><span class="pln">testBox</span><span class="pun">.</span><span
+                            class="pln">add</span><span class="pun">(</span><span class="str">"jQuery"</span><span
+                            class="pun">).</span><span class="pln">remove</span><span class="pun">(</span><span
+                            class="str">"jQuery"</span><span class="pun">);</span></code></li></ul></pre>
+                    <hr>
+                    <h3 id="h3--lists"><a name="列表 Lists" class="reference-link"></a><span
+                            class="header-link octicon octicon-link"></span>列表 Lists</h3><h4 id="h4--unordered-lists-">
+                    <a name="无序列表（减号）Unordered Lists (-)" class="reference-link"></a><span
+                        class="header-link octicon octicon-link"></span>无序列表（减号）Unordered Lists (-)</h4>
+                    <ul>
+                        <li>列表一</li>
+                        <li>列表二</li>
+                        <li>列表三</li>
+                    </ul>
+                    <h4 id="h4--unordered-lists"><a name="无序列表（星号）Unordered Lists (*)" class="reference-link"></a><span
+                            class="header-link octicon octicon-link"></span>无序列表（星号）Unordered Lists (*)</h4>
+                    <ul>
+                        <li>列表一</li>
+                        <li>列表二</li>
+                        <li>列表三</li>
+                    </ul>
+                    <h4 id="h4--unordered-list"><a name="无序列表（加号和嵌套）Unordered Lists (+)"
+                                                   class="reference-link"></a><span
+                            class="header-link octicon octicon-link"></span>无序列表（加号和嵌套）Unordered Lists (+)</h4>
+                    <ul>
+                        <li>列表一</li>
+                        <li>列表二
+                            <ul>
+                                <li>列表二-1</li>
+                                <li>列表二-2</li>
+                                <li>列表二-3</li>
+                            </ul>
+                        </li>
+                        <li>列表三
+                            <ul>
+                                <li>列表一</li>
+                                <li>列表二</li>
+                                <li>列表三</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <h4 id="h4--ordered-lists-"><a name="有序列表 Ordered Lists (-)" class="reference-link"></a><span
+                            class="header-link octicon octicon-link"></span>有序列表 Ordered Lists (-)</h4>
+                    <ol>
+                        <li>第一行</li>
+                        <li>第二行</li>
+                        <li>第三行</li>
+                    </ol>
+                    <h4 id="h4-gfm-task-list"><a name="GFM task list" class="reference-link"></a><span
+                            class="header-link octicon octicon-link"></span>GFM task list</h4>
+                    <ul>
+                        <li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox" checked=""
+                                                             disabled=""> GFM task list 1
+                        </li>
+                        <li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox" checked=""
+                                                             disabled=""> GFM task list 2
+                        </li>
+                        <li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox"> GFM task
+                            list 3
+                            <ul>
+                                <li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox">
+                                    GFM task list 3-1
+                                </li>
+                                <li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox">
+                                    GFM task list 3-2
+                                </li>
+                                <li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox">
+                                    GFM task list 3-3
+                                </li>
+                            </ul>
+                        </li>
+                        <li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox"> GFM task
+                            list 4
+                            <ul>
+                                <li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox">
+                                    GFM task list 4-1
+                                </li>
+                                <li style="list-style: none;"><input type="checkbox" class="task-list-item-checkbox">
+                                    GFM task list 4-2
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <hr>
+                    <h3 id="h3--tables"><a name="绘制表格 Tables" class="reference-link"></a><span
+                            class="header-link octicon octicon-link"></span>绘制表格 Tables</h3>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>项目</th>
+                            <th style="text-align:right">价格</th>
+                            <th style="text-align:center">数量</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>计算机</td>
+                            <td style="text-align:right">$1600</td>
+                            <td style="text-align:center">5</td>
+                        </tr>
+                        <tr>
+                            <td>手机</td>
+                            <td style="text-align:right">$12</td>
+                            <td style="text-align:center">12</td>
+                        </tr>
+                        <tr>
+                            <td>管线</td>
+                            <td style="text-align:right">$1</td>
+                            <td style="text-align:center">234</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>First Header</th>
+                            <th>Second Header</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Content Cell</td>
+                            <td>Content Cell</td>
+                        </tr>
+                        <tr>
+                            <td>Content Cell</td>
+                            <td>Content Cell</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>First Header</th>
+                            <th>Second Header</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Content Cell</td>
+                            <td>Content Cell</td>
+                        </tr>
+                        <tr>
+                            <td>Content Cell</td>
+                            <td>Content Cell</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Function name</th>
+                            <th>Description</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td><code>help()</code></td>
+                            <td>Display the help window.</td>
+                        </tr>
+                        <tr>
+                            <td><code>destroy()</code></td>
+                            <td><strong>Destroy your computer!</strong></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th style="text-align:left">Left-Aligned</th>
+                            <th style="text-align:center">Center Aligned</th>
+                            <th style="text-align:right">Right Aligned</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td style="text-align:left">col 3 is</td>
+                            <td style="text-align:center">some wordy text</td>
+                            <td style="text-align:right">$1600</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left">col 2 is</td>
+                            <td style="text-align:center">centered</td>
+                            <td style="text-align:right">$12</td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:left">zebra stripes</td>
+                            <td style="text-align:center">are neat</td>
+                            <td style="text-align:right">$1</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th style="text-align:right">Value</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Computer</td>
+                            <td style="text-align:right">$1600</td>
+                        </tr>
+                        <tr>
+                            <td>Phone</td>
+                            <td style="text-align:right">$12</td>
+                        </tr>
+                        <tr>
+                            <td>Pipe</td>
+                            <td style="text-align:right">$1</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <hr>
+                    <h4 id="h4--html-entities-codes"><a name="特殊符号 HTML Entities Codes" class="reference-link"></a><span
+                            class="header-link octicon octicon-link"></span>特殊符号 HTML Entities Codes</h4>
+                    <p>© &amp; ¨ ™ ¡ £<br>&amp; &lt; &gt; ¥ € ® ± ¶ § ¦ ¯ « · </p>
+                    <p>X² Y³ ¾ ¼ × ÷ »</p>
+                    <p>18ºC " '</p>
+                </div>
+                <!--<dl>-->
+                <!--<dt>这应该是一些描述</dt>-->
+                <!--</dl>-->
+            </li>
+            <li>
+                <h3><img src="../public/img/plan.svg" alt=""><span>明日工作计划</span></h3>
+                <dl>
+                    <dt>这应该是一些描述</dt>
+                </dl>
+            </li>
+        </ul>
+    </section>
+    <section class="contact">
+        <div class="qrcode">
+            <img src="../public/img/qrcode.png" alt="">
+        </div>
+        <p>Wechat: mxz96102</p>
+        <p>QQ: 424461517</p>
+    </section>
+</div>
+</body>
+<script>
+  function getPic() {
+    html2canvas(document.querySelector(".main")).then(canvas => {
+      var a = document.createElement('a');
+
+      a.href = canvas.toDataURL();
+      a.download = "dr-" + (new Date()).toLocaleDateString() + ".png";
+      a.click();
+      document.querySelector(".main").style.display = "none";
+      document.body.appendChild(canvas)
+    });
+  }
+</script>
+</html>

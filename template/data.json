@@ -1,0 +1,36 @@
+{
+  "date": "yyyy-mm-dd",
+  "user": {
+    "name": "xxx",
+    "avatar": "://xxxx"
+  },
+  "timeline": [
+    {
+      "time": "xxxx - xxxx",
+      "work": [
+        "1....",
+        "2...."
+      ]
+    }
+  ],
+  "other": [
+    "xxxxxxx",
+    "xxxxxxx"
+  ],
+  "progress": [
+    {
+      "title": "xxx",
+      "per": 22,
+      "duration": "yyyy-mm-dd - yyyy-mm-dd",
+      "desc": "xxxxxx"
+    }
+  ],
+  "problem": "xxxxx",
+  "thought": "sxxsdcsdf",
+  "plan": "sdfasfas",
+  "info": {
+    "qrcode": "://xxx",
+    "wechat": "xxxx",
+    "qq": "000000000"
+  }
+}

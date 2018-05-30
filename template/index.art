@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Daily Example</title>
+    <link href="../src/style.css" rel="stylesheet" type="text/css">
+    <link href="../src/markdown.css" rel="stylesheet" type="text/css">
+    <script src="../public/html2canvas.min.js"></script>
+</head>
+<body>
+
+</body>
+
+</html>

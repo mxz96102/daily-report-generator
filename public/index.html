@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#000000">
+    <!--
+      manifest.json provides metadata used when your web app is added to the
+      homescreen on Android. See https://developers.google.com/web/fundamentals/engage-and-retain/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json">
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico">
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <link href="../style.css" rel="stylesheet" type="text/css">
+    <link href="../markdown.css" rel="stylesheet" type="text/css">
+
+    <script src="html2canvas.min.js"></script>
+    <script src="template-web.js"></script>
+    <script id="dr-template" type="text/html">
+      <button class="ant-btn ant-btn-primary" style="margin: 10px auto" onclick="getPic()">生成图片</button>
+      <div class="main" style="text-align: initial">
+        <header>
+          <span class="date">{{date}}</span>
+          <div class="flex"></div>
+          <span class="user">by {{user.name}}</span>
+        </header>
+        <section class="info">
+          <div class="logo">
+            <img src="{{user.avatar}}"
+                 alt="">
+          </div>
+          <div class="title">
+            <img src="../img/sun.png" alt="">
+            <div class="name">{{user.name}} 的日报</div>
+            <img src="../img/moon_and.png" alt="">
+          </div>
+          <div class="time-line">
+            <hr>
+            <ul>
+              {{each timeline t k}}
+              <li>
+                <div class="time">{{t.time}}</div>
+                <div class="content">
+                  <dl>
+                    {{each t.work v k2}}
+                    <dd>{{v}}</dd>
+                    {{/each}}
+                  </dl>
+                </div>
+              </li>
+              {{/each}}
+            </ul>
+          </div>
+        </section>
+        <section class="other">
+          <h2>其他事项</h2>
+          <ul>
+            {{each other}}
+            <li>{{$value}}</li>
+            {{/each}}
+          </ul>
+        </section>
+        <section class="list">
+          <ul>
+            {{if progress.length > 0}}
+            <li>
+              <h3><img src="../img/time.svg" alt=""><span>工作进度</span></h3>
+              {{each progress task k}}
+              <div class="task">
+                <div class="h">
+                  <span>{{task.title}}</span>
+                  <div class="p">
+                    <div class="date">
+                      <div
+                      {{if task.per < 55}}
+                        style="color: black"
+                      {{/if}}
+                      >{{task.per}}%</div>
+                    </div>
+                    <div class="progress">
+                      <div style="width: {{task.per}}%;
+                      {{if task.per == 100}}
+                        background: #a4d0ae;
+                      {{/if}}
+                        "></div>
+                    </div>
+                  </div>
+                </div>
+                <p>{{task.duration}}</p>
+                <div class="markdown-body">{{task.desc}}</div>
+              </div>
+              {{/each}}
+            </li>
+            {{/if}}
+            {{if problem}}
+            <li>
+              <h3><img src="../img/msg.svg" alt=""><span>遇到的问题</span></h3>
+              <div class="markdown-body">{{problem}}</div>
+            </li>
+            {{/if}}
+            {{if thought}}
+            <li>
+              <h3><img src="../img/think.svg" alt=""><span>思考与感悟</span></h3>
+              <div class="markdown-body">
+                {{thought}}
+              </div>
+            </li>
+            {{/if}}
+            {{if plan}}
+            <li>
+              <h3><img src="../img/plan.svg" alt=""><span>明日工作计划</span></h3>
+              <div class="markdown-body">
+                {{plan}}
+              </div>
+            </li>
+            {{/if}}
+          </ul>
+        </section>
+        <section class="contact">
+          <div class="qrcode">
+            <img src="{{info.qrcode}}" alt="">
+          </div>
+          {{if info.wechat}}
+          <p>Wechat: {{info.wechat}}</p>
+          {{/if}}
+          {{if info.qq}}
+          <p>QQ: {{info.qq}}</p>
+          {{/if}}
+        </section>
+    </div>
+    </script>
+    <title>日报生成器</title>
+    <script>
+      function getPic() {
+        window.devicePixelRatio = 2;
+        html2canvas(document.querySelector(".main")).then(canvas => {
+          // var a = document.createElement('a');
+          //
+          // a.href = canvas.toDataURL();
+          // a.download = "dr-" + (new Date()).toLocaleDateString() + ".png";
+          // a.click();
+          document.querySelector(".main").innerHTML = "";
+          document.querySelector(".main").appendChild(canvas)
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="root"></div>
+    <!--
+      This HTML file is a template.
+      If you open it directly in the browser, you will see an empty page.
+
+      You can add webfonts, meta tags, or analytics to this file.
+      The build step will place the bundled scripts into the <body> tag.
+
+      To begin the development, run `npm start` or `yarn start`.
+      To create a production bundle, use `npm run build` or `yarn build`.
+    -->
+    <div id="content" style="text-align: center"></div>
+    <footer style="text-align: center; color: #6a737d;font-size: 10px;padding: 20px">
+      <p>Copyright by <a href="http://hustfe.com">HUSTFE</a> (DominicMing)</p>
+    </footer>
+  </body>
+</html>
